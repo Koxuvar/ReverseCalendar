@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS reverse_calendarDB;
 CREATE DATABASE reverse_calendarDB;
 
+USE reverse_calendarDB;
 
     CREATE TABLE users (
         id INT PRIMARY KEY AUTO_INCREMENT,
