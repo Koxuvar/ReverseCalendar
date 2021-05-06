@@ -12,7 +12,7 @@
     "url": "git+https://github.com/Koxuvar/ReverseCalendar.git"
   },
   "author": "Connor Sullivan, Emily Dohm, Dennis Irvin jr.",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Koxuvar/ReverseCalendar/issues"
   },
