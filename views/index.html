@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shubang</title>
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/index.css">
+
+</head>
+<body>
+    <header>
+        <h1>Shuhbang</h1>
+        <h2 class="tab thin float">Stop looking ahead.</h2>
+        <label class="switch">
+            <i class="far fa-moon"></i>
+            <input type="checkbox" id="dark-mode-switch">
+            <span class="slider round"></span>
+        </label>
+    </header>
+    <div class="container-full">
+        <div class="centered bg-dark text-lite text-center">
+            <h1 class="display thinner">focus on today</h1>
+            <div class="container row">
+                <button id="signup-form-button" class="btn-dark">Start Now</button>
+                <div class="vline"></div>
+                <button id="login-form-button" class="btn-dark">Sign in</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login  -->
+    
+    <div class="login container">
+        <form>
+            <label for="username">Username:</label>
+            <input type="text" placeholder="Username"name="username">
+            <label for="password">Password:</label>
+            <input type="password" placeholder="Password"name="password">
+            <div class="text-center">
+                <button class="btn-dark" >Sign in</button>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- Sign Up -->
+
+    <div class="signup container-fluid">
+        <form>
+            <label for="username">Username:</label>
+            <input type="text" placeholder="Username"name="username">
+            <label for="password">Password:</label>
+            <input type="password" placeholder="Password"name="password">
+            <label for="email">Email:</label>
+            <input type="email" placeholder="Email"name="email">
+            <div class="text-center">
+                <button class="btn-dark" >Start</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="../public/js/index.js"></script>
+    
+</body>
+</html>

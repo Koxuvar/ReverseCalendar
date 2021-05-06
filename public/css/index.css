@@ -1,0 +1,33 @@
+.login{
+    position: fixed;
+    z-index: 1;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: auto;
+    opacity: 0;
+    transition: .5s;
+}
+
+.signup{
+    position: fixed;
+    z-index: 1;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: auto;
+    opacity: 0;
+    transition: .5s;
+}
+
+@media screen and (max-width: 768px) {
+    .login, .signup{
+        top: 70%;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .login, .signup{
+        width: auto;
+    }
+}
