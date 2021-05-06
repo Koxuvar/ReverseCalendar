@@ -204,6 +204,13 @@ input:checked + .slider:before {
     height: 1em;
 }
 
+.line{
+    border: solid 1px var(--text-color);
+    margin: 2em;
+    width: 0;
+    height: 1em;
+}
+
 .container-full{
     display: flex;
     flex-flow: column nowrap;
