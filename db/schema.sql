@@ -7,6 +7,7 @@ USE reverse_calendarDB;
         id INT PRIMARY KEY AUTO_INCREMENT,
         username VARCHAR(30),
         password VARCHAR(30),
+        email VARCHAR()
     )
 
     CREATE TABLE dailyCheck (
