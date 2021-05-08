@@ -7,15 +7,18 @@ const withAuth = require('../../utils/auth');
 
 
 //get categories by user
-router.get('/:id', (req, res) =>
+router.get('/', withAuth, async (req, res) =>
 {
+    console.log(req.session)
+    console.log(req.session.user_id)
     try
     {
         Catagory.findAll(
             {
                 where:
                 {
-                    user_id: req.params.id,
+                    
+                    user_id: req.session.user_id,
                 }
             }
         )
@@ -34,14 +37,16 @@ router.get('/:id', (req, res) =>
 
 
 //create catagories for user
-router.post('/:id', (req, res) =>
+router.post('/', withAuth, async (req, res) =>
 {
+    console.log(req.session.user_id)
     try
     {
         Catagory.create(
             {
               ...req.body,
-              user_id: req.params.id,
+             
+              user_id: req.session.user_id,
             }
         )
         .then((newCatagory) =>
@@ -56,7 +61,7 @@ router.post('/:id', (req, res) =>
 });
 
 //update catagories for user
-router.put('/:id/:catId', (req,res) =>
+router.put('/:catId', withAuth, (req,res) =>
 {
     try
     {
@@ -67,8 +72,9 @@ router.put('/:id/:catId', (req,res) =>
             {
                 where:
                 {
-                    user_id:req.params.id,
-                    id: req.params.catId
+                    
+                    id: req.params.catId,
+                    user_id: req.session.user_id,
                 }
             }
         )
@@ -85,15 +91,16 @@ router.put('/:id/:catId', (req,res) =>
 });
 
 //delete catagories for user
-router.delete('/:id/:catId', (req,res) =>
+router.delete('/:catId', withAuth, async (req,res) =>
 {
     try
     {
         Catagory.destroy(
             {
                 where: {
-                    user_id:req.params.id,
-                    id: req.params.catId
+                    
+                    id: req.params.catId,
+                    user_id: req.session.user_id,
                 }
             }
         )
