@@ -17,7 +17,7 @@ Catagory.init(
      allowNull: false,
    },
    color:{
-     type: DataTypes.INTEGER,
+     type: DataTypes.STRING,
      allowNull: false,
    },
    user_id:{
