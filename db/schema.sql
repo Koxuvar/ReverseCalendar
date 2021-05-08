@@ -8,14 +8,15 @@ USE reverse_calendarDB;
         username VARCHAR(30),
         password VARCHAR(30),
         email VARCHAR()
-    )
+    );
+
 
     CREATE TABLE dailyCheck (
         category_id VARCHAR(30)
         day DATE,
         user_id INT
         FOREIGN KEY (user_id) REFERENCES user(id)
-    )
+    );
 
    CREATE TABLE category (
         id INT PRIMARY KEY AUTO_INCREMENT,
