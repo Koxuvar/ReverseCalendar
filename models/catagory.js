@@ -2,13 +2,9 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 
-class catagory extends Model{
-  checkUser(user_id) {
-    return user_id.compareSync(user_id,this.user);
-  }
-}
+class Catagory extends Model{}
 
-catagory.init(
+Catagory.init(
   {
    id:{
      type: DataTypes.INTEGER,
@@ -42,4 +38,4 @@ catagory.init(
 }
 );
 
-module.exports = catagory;
+module.exports = Catagory;

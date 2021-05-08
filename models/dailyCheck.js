@@ -2,13 +2,9 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 
-class dailyCheck extends Model{
-  checkUser(user_id) {
-    return user_id.compareSync(user_id,this.user);
-  }
-}
+class DailyCheck extends Model{}
 
-dailyCheck.init(
+DailyCheck.init(
   {
    id:{
      type: DataTypes.INTEGER,
@@ -42,4 +38,4 @@ dailyCheck.init(
 }
 );
 
-module.exports = dailyCheck;
+module.exports = DailyCheck;
