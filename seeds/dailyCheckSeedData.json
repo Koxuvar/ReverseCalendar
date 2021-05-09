@@ -1,0 +1,52 @@
+[
+    {
+        "user_id": 1,
+        "catagory_id": 1,
+        "day": "05-05-2021"
+    },
+    {
+        "user_id": 1,
+        "catagory_id": 1,
+        "day": "05-06-2021 00:00:00"
+    },
+    {
+        "user_id": 1,
+        "catagory_id": 1,
+        "day": "05-07-2021 00:00:00"
+    },
+    {
+        "user_id": 1,
+        "catagory_id": 1,
+        "day": "05-08-2021 00:00:00"
+    },
+    {
+        "user_id": 1,
+        "catagory_id": 2,
+        "day": "05-07-2021 00:00:00"
+    },
+    {
+        "user_id": 1,
+        "catagory_id": 2,
+        "day": "05-08-2021 00:00:00"
+    },
+    {
+        "user_id": 1,
+        "catagory_id": 2,
+        "day": "05-09-2021 00:00:00"
+    },
+    {
+        "user_id": 2,
+        "catagory_id": 3,
+        "day": "05-05-2021 00:00:00"
+    },
+    {
+        "user_id": 2,
+        "catagory_id": 3,
+        "day": "05-06-2021 00:00:00"
+    },
+    {
+        "user_id": 3,
+        "catagory_id": 4,
+        "day": "05-06-2021 00:00:00"
+    }
+]
