@@ -1,5 +1,4 @@
 const sequelize = require('../config/connection');
-// const seedDays = require('./daysData');
 const userSeedData = require('./userSeedData.json');
 const catagorySeedData = require('./catagorySeedData.json');
 dailyCheckSeedData = require('./dailyCheckSeedData.json');
@@ -10,9 +9,6 @@ const seedAll = async () => {
   const users = await User.bulkCreate(userSeedData);
   const catagorys = await Catagory.bulkCreate(catagorySeedData);
   const dailyChecks = await DailyCheck.bulkCreate(dailyCheckSeedData);
-
-
-  // await seedDays();
 
   process.exit(0);
 };
