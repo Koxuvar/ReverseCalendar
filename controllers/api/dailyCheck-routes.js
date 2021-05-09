@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const dailyCheck = require('../../models/dailyCheck');
+const DailyCheck = require('../../models/DailyCheck');
 
 
 
 
 
 router.get("/", (req, res) => {
-  dailyCheck.findAll().then((dailyCheckData) => {
+  DailyCheck.findAll().then((dailyCheckData) => {
     res.json(dailyCheckData);
   });
 });

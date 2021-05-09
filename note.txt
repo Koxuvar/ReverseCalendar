@@ -1,0 +1,30 @@
+    Creating category form
+
+    input field type in the category name
+
+    dorp down pick a colo
+        -orange
+        -red
+        -blue
+        -grey
+
+
+
+    daily check form
+
+        (go to DB and get all the categorywith my user id) 
+        drop down of their categorys
+            categorys
+            - coding
+            - exercise
+
+        input field for the date
+            date picker html thing
+
+
+
+Calendar
+
+category drop down
+
+

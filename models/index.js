@@ -1,22 +1,27 @@
-const User = require('./user');
-const dailyCheck = require('./dailyCheck');
-const catagory = require('./catagory');
+const User = require('./User');
+const DailyCheck = require('./DailyCheck');
+const Catagory = require('./Catagory');
 
-User.hasMany(dailyCheck,{
-  foreignKey: 'user_id'
+//user & catagory relationship
+User.hasMany(Catagory,{
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
 });
-User.hasMany(catagory,{
-  foreignKey: 'user_id'
-});
-
-dailyCheck.belongsTo(User,{
+Catagory.belongsTo(User,{
   foreignKey: 'user_id'
 });
 
-catagory.belongsTo(User,{
+//user & dailyCheck relationship
+User.hasMany(DailyCheck,{
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+});
+
+DailyCheck.belongsTo(User,{
   foreignKey: 'user_id'
+});
 
-})
 
 
-module.exports = { User,catagory,dailyCheck };
+
+module.exports = { User,Catagory,DailyCheck };
