@@ -2,8 +2,7 @@
     position: fixed;
     z-index: 1;
     top: 60%;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 100%;   
     overflow: auto;
     opacity: 0;
     transition: .5s;
@@ -13,11 +12,22 @@
     position: fixed;
     z-index: 1;
     top: 60%;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 100%;
     overflow: auto;
     opacity: 0;
     transition: .5s;
+}
+
+.date{
+    min-width: 14%;
+    min-height: 20%;
+    box-shadow: 0 4px 10px rgba(0,0,0,.6);
+    border-radius: 2em;
+    transition: .25s;
+}
+
+.date:hover{
+    transform: translateY(-10px);
 }
 
 @media screen and (max-width: 768px) {

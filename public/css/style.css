@@ -28,8 +28,13 @@ body{
 
 header {
     padding: 2rem;
-    position: fixed;
-    top: 0;
+    /* position: fixed;
+    top: 0; */
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
 }
 
 button{
@@ -96,7 +101,7 @@ input{
     border: none;    
     border-bottom:solid 1px;
     border-color: var(--dark-text-color);
-    color: var(--dark-text-color);
+    color: var(--text-color);
     margin: .5rem;
 }
 
@@ -218,6 +223,13 @@ input:checked + .slider:before {
     justify-content: center;
 }
 
+.container-half{
+    display: flex;
+    flex-flow: column nowrap;
+    height: 50%;
+    justify-content: center;
+}
+
 .container{
     display: flex;
     flex-flow: column nowrap;
@@ -225,11 +237,25 @@ input:checked + .slider:before {
     align-content: center;
 }
 
+.wrap{
+    flex-wrap: wrap;
+}
 .row{
     flex-direction: row;
 }
 
+.pos-end{
+    justify-content: flex-end;
+}
+
+.space-even{
+    justify-content: space-evenly;
+}
+
 /* ------------- Utilities ------------- */
+.click{
+    cursor: pointer;
+}
 .tab{
     margin-left: 1rem;
 }
@@ -238,7 +264,21 @@ input:checked + .slider:before {
     margin-left: 2rem;
 }
 
+.narrow{
+    margin: 0 1rem;
+}
 
+.narrower{
+    margin: 0 2rem;
+}
+
+.short{
+    margin: 1rem 0;
+}
+
+.shorter{
+    margin: 2rem 0;
+}
 /* ------------- TEXT & FONT ------------- */
 .text-center{
     text-align: center;
