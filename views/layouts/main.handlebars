@@ -14,9 +14,21 @@
 
 </head>
 <body>
-    <header>
-        <a href="/"><h1>Shuhbang</h1></a>
-        <h2 class="tab thin float">Stop looking ahead.</h2>
+    <header class="container row pos-start">
+        <div class="container">
+            <a href="/"><h1>Shuhbang</h1></a>
+            <h2 class="tab thin float">Stop looking ahead.</h2>
+        </div>
+        {{#if logged_in}}
+        <div style="width: 30%; align-items: flex-end" class="row container tabtab pos-start">
+            <a class="narrow" href="/calendar">My Calendar</a>
+            <a class="narrow" href="/calendar">My Goals</a>
+            <a class="narrow" href="/stats">Stats</a>
+        </div>
+        <div style="width: 40%; align-items: flex-end" class="row container tabtab pos-end">
+            <a class="narrow logout" onclick="logout()">Logout</a> 
+        </div>
+        {{/if}}
         <label class="switch">
             <i class="far fa-moon"></i>
             <input type="checkbox" id="dark-mode-switch">

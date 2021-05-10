@@ -21,13 +21,38 @@
 .date{
     min-width: 14%;
     min-height: 20%;
-    box-shadow: 0 4px 10px rgba(0,0,0,.6);
+    box-shadow: 0 10px 1px rgba(0,0,0,.6);
     border-radius: 2em;
     transition: .25s;
 }
 
 .date:hover{
-    transform: translateY(-10px);
+    transform: translateY(-4px);
+}
+
+.daynum{
+    width: fit-content;
+}
+
+.catagory{
+    box-shadow: 0 0 4px rgba(0,0,0,.6);
+    border-radius: 5px;
+    margin: 1rem 0;
+    transition: .5s;
+}
+
+.catagory:hover{
+    box-shadow: 0 0 8px rgba(0 , 0, 0, .6);
+}
+
+.logout{
+    cursor: pointer;
+}
+
+.color-swatch{
+    min-width: 30%;
+    margin: 4px;
+    background-color: green;
 }
 
 @media screen and (max-width: 768px) {

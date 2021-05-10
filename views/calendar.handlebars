@@ -8,5 +8,17 @@
     
 </div>
 
+<div id="cat-select" class="modal">
+    <div class="modal-header text-center">
+        <h1 class="display thin narrow">Select a goal to add</h1>
+        <hr class="narrower">
+    </div>
+    <ul class="container-full space-even elbow-room">
+        {{#each cats as |cat|}}
+        <li class="container catagory elbow-room row space-between" data-id="{{cat.id}}"><h2>{{cat.name}}</h2><div style="background:{{cat.color}}" class="color-swatch" data-color="{{cat.color}}"></div></li>
+        {{/each}}
+    </ul>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/luxon@1.26.0/build/global/luxon.min.js"></script>
 <script src="/js/calendar.js"></script>

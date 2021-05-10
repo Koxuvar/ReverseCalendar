@@ -1,29 +1,26 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { User, Catagory } = require('../models');
 const withAuth = require('../utils/auth');
 
-// router.get('/', withAuth, async (req, res) => {
-//   try {
-//     const userData = await User.findAll({
-//       attributes: { exclude: ['password'] },
-//       order: [['name', 'ASC']],
-//     });
 
-//     const users = userData.map((project) => project.get({ plain: true }));
 
 router.get('/',(req, res) => {
-  
+  if(req.session.logged_in)
+  {
+    res.redirect('/calendar');
+    return;
+  }
 
-    res.render('homepage',{
-      logged_in:req.session.loggedIn
-    });
+  res.render('homepage',{
+    logged_in:req.session.logged_in
+  });
 
  
 });
 
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
-    res.redirect('/');
+    res.redirect('/calendar');
     return;
   }
 
@@ -32,7 +29,27 @@ router.get('/login', (req, res) => {
 
 router.get('/calendar', (req, res) =>
 {
-  res.render('calendar');
+  if(!req.session.logged_in)
+  {
+    res.redirect('/');
+    return;
+  }
+  
+  Catagory.findAll(
+    {
+        where:
+        {
+            user_id: req.session.user_id,
+        }
+    })
+    .then((catagories) => 
+    {
+        const cats = catagories.map((cat) => cat.get({plain: true}));
+        res.render('calendar', {
+            cats, 
+            logged_in:req.session.logged_in 
+        });
+    });
 });
 
 module.exports = router;

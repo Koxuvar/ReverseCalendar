@@ -120,9 +120,9 @@ input:focus{
     transform: translate(-50%, -50%);
     width: 45%;
     overflow: auto;
-    background: var(--dark-main-bg-color);
+    background: var(--main-bg-color);
     border: solid 1px var(--extra-bg-color);
-    color: var(--dark-text-color);
+    color: var(--text-color);
     border-radius: 2rem;
 }
 
@@ -133,7 +133,7 @@ input:focus{
 /* ------------- Slider ------------- */
 /* The switch - the box around the slider */
 .switch {
-  position: fixed;
+  position: absolute;
   right: 10px;
   top: 10px;
   display: inline-block;
@@ -248,8 +248,16 @@ input:checked + .slider:before {
     justify-content: flex-end;
 }
 
+.pos-start{
+    justify-content: flex-start;
+}
+
 .space-even{
     justify-content: space-evenly;
+}
+
+.space-between{
+    justify-content: space-between;
 }
 
 /* ------------- Utilities ------------- */
@@ -278,6 +286,10 @@ input:checked + .slider:before {
 
 .shorter{
     margin: 2rem 0;
+}
+
+.elbow-room{
+    padding: 1rem;
 }
 /* ------------- TEXT & FONT ------------- */
 .text-center{

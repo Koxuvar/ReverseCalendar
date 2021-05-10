@@ -6,7 +6,7 @@ const { User, Catagory, DailyCheck } = require('../models');
 
 const seedAll = async () => {
   await sequelize.sync({ force: true });
-  const users = await User.bulkCreate(userSeedData);
+  const users = await User.bulkCreate(userSeedData, {individualHooks: true, returning: true});
   const catagorys = await Catagory.bulkCreate(catagorySeedData);
   const dailyChecks = await DailyCheck.bulkCreate(dailyCheckSeedData);
 

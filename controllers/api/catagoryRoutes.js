@@ -7,24 +7,25 @@ const withAuth = require('../../utils/auth');
 
 
 //get categories by user
-router.get('/', withAuth, async (req, res) =>
+router.get('/', withAuth, (req, res) =>
 {
-    console.log(req.session)
-    console.log(req.session.user_id)
+    console.log(req.session);
+    console.log(req.session.user_id);
     try
     {
         Catagory.findAll(
             {
                 where:
                 {
-                    
                     user_id: req.session.user_id,
                 }
             }
         )
         .then((catagories) => 
         {
-            res.json(catagories);
+            const catsPlain = catagories.map((cat) => cat.get({plain: true}));
+
+            res.json(catsPlain);
         })
         .catch((err) => res.status(500).json(err));
     }

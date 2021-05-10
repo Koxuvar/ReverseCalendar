@@ -1,6 +1,7 @@
 const DateTime = luxon.DateTime;
 const year = DateTime.now().year;
 let currentMonth = DateTime.now().month;
+let userCat = [];
 
 const setMonth = (dt) =>
 {
@@ -25,28 +26,25 @@ const clearNodes = (parent) =>
     }
 }
 
-const createCal = (cal) =>
+const renderCal = (cal) =>
 {
     let calendar = document.getElementById('calendar');
     clearNodes(calendar);
-    console.log(cal);
+
     cal.forEach(e =>
         {
 
-            $('.calendar').append(`<a class="date text-center narrower short" data.day="${e}"><h2 class="shorter thin">${e}</h2><a>`);
+            $('.calendar').append(`<a class="date container row narrower short" id="date" data-day="${e}"><h2 class="daynum shorter thin">${e}</h2><a>`);
             
         });
     if(cal.length > 42)
     {
         for(let i = 0; i < 49 - cal.length; i++)
         {
-            $('.calendar').append(`<a class="date text-center narrower short" data.day=""><h2 class="shorter thin"></h2><a>`);
+            $('.calendar').append(`<a class="date text-center narrower short" data-day=""><h2 class="shorter thin"></h2><a>`);
         }
     }
-    
-    
 }
-
 
 const populateCal = (dt) =>
 {
@@ -59,10 +57,8 @@ const populateCal = (dt) =>
     {
         cal[firstDay + i] = i + 1;
     }
-    console.log(cal);
-
     
-    createCal(cal);
+    renderCal(cal);
 }
 
 const plusMonth = () =>
@@ -81,6 +77,51 @@ const minusMonth = () =>
     populateCal(dt);
 }
 
+$('body').on('click', '#date', (e) =>
+{
+    let t = e.target;
+    let day = 0;
+    if(t.nodeName =='H2')
+    {
+        console.log('hello');
+        day = t.parentNode.dataset.day;
+    }
+    else if(t.nodeName == 'A')
+    {
+        day = t.dataset.day;
+    }
+
+    $('#cat-select').css('display',' block');
+    
+
+
+});
+
+const getCategory = () =>
+{
+    fetch('/api/catagory/',
+    {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json; charset=utf-8', }
+    })
+    .then((response) =>
+    {
+        if (response.ok)
+        {
+            return response.json();
+        }
+        else
+        {
+            console.log("shits broke")
+        }
+    })
+    .then((data) =>
+    {
+        userCat = Array.from(data);
+    });
+
+}
 
 setMonth(DateTime.now());
 populateCal(DateTime.now());
+getCategory();
