@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const Catagory = require('../../models/Catagory');
+const Catagory = require('../../models/catagory');
 const withAuth = require('../../utils/auth');
 
 
