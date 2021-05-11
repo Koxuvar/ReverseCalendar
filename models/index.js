@@ -1,6 +1,6 @@
 const User = require('./user');
-const DailyCheck = require('./DailyCheck');
-const Catagory = require('./Catagory');
+const DailyCheck = require('./dailyCheck');
+const Catagory = require('./catagory');
 
 //user & catagory relationship
 User.hasMany(Catagory,{
