@@ -196,7 +196,7 @@ $('li').click( async (e)=>
     }
 
     pushCat(curDay, curCat)
-    setTimeout(populateCal(DateTime.now()), 50);
+    setTimeout(populateCal(DateTime.now()), 250);
 });
 
 setMonth(DateTime.now());
