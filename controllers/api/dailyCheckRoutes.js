@@ -1,47 +1,47 @@
 const router = require('express').Router();
-const dailyCheck = require('../../models/dailyCheck');
+const { User, Catagory, DailyCheck }= require('../../models');
 const withAuth = require('../../utils/auth');
 
 //get dailychecks for this user
-router.get('/', withAuth, async (req,res) => {
+router.get('/getChecks', withAuth, async (req,res) => {
     try {
-        const dailyCheckData = await dailyCheck.findAll({
-            where:
-                {
-                    user_id: req.session.user_id,
-                }
+        const dailyCheckData = await User.findByPk(req.session.user_id,{
+            include:[{model:Catagory}, {model: DailyCheck}]  
             });
+            
             //catch errors
             if (!dailyCheckData) {
                 res.status(404).json({ message: 'No dailyCheck found with this id!' });
                 return;
             }
-            const dCheckData = dailyCheckData.map((dc) => dc.get({plain:true}));
-            res.status(200).json(dCheckData);
+            res.status(200).json(dailyCheckData);
         }
         catch (err) {
             res.status(500).json(err)};
 });
 
     //create a daily check for this user
-router.post('/', withAuth, async (req,res) => {
+router.post('/create', withAuth, async (req,res) => {
     try {
-        const dailyCheckData = await dailyCheck.create({
+        const dailyCheckData = await DailyCheck.create({
             day: req.body.day,
             user_id: req.session.user_id,
-            catagory_id:req.body.category_id
+            catagory_id:req.body.catagory_id
         });
+        console.log(dailyCheckData);
         res.status(200).json(dailyCheckData);
     }
-    catch (err) {
-        res.status(400).json(err);
-      }
-    });
+    catch (err) 
+    {
+        console.log(err);
+            res.status(418).json(err);
+    }
+});
 
     //delete a daily check for this user 
 router.delete('/:id', withAuth, async (req, res) => {
   try {
-    const dailyCheckData = await dailyCheck.destroy({
+    const dailyCheckData = await DailyCheck.destroy({
       where: {
         id: req.params.id,
         user_id: req.session.user_id,

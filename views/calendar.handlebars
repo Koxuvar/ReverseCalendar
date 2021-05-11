@@ -15,7 +15,12 @@
     </div>
     <ul class="container-full space-even elbow-room">
         {{#each cats as |cat|}}
-        <li class="container catagory elbow-room row space-between" data-id="{{cat.id}}"><h2>{{cat.name}}</h2><div style="background:{{cat.color}}" class="color-swatch" data-color="{{cat.color}}"></div></li>
+        <li class="container catagory elbow-room row space-between" data-id="{{cat.id}}">
+            <h2>{{cat.name}}</h2>
+            <div style="background:{{cat.color}}" class="color-swatch" data-color="{{cat.color}}"></div>
+        </li>
+        {{else}}
+        <h2>Oops no goals set! Head to the my goals page to create your first goal.</h2>
         {{/each}}
     </ul>
 </div>

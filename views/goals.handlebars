@@ -1,0 +1,29 @@
+<hr class="narrow">
+<h1 class="tab display thin">My Goals</h1>
+<hr class="narrow">
+
+<div class="goal container">
+    <form id="goal-form">
+        <label for="goal-name">Goal Name:</label>
+        <input type="text" placeholder="Code Every Day" name="goal-name">
+        <label for="color">Color:</label>
+        <input type="color" value="#F2A742" name="color">
+        <div class="text-center">
+            <button id="add-goal" class="btn-dark" >Add a goal</button>
+        </div>
+    </form>
+</div>
+
+<div class="container-half elbow-room">
+    {{#each cats as |cat|}}
+    <li class="container catagory elbow-room row space-between" data-id="{{cat.id}}">
+        <h2>{{cat.name}}</h2>
+        <div style="background:{{cat.color}}" class="color-swatch" data-color="{{cat.color}}"></div>
+        <div class="delete fas fa-trash" id="delete"></div>
+    </li>
+    {{else}}
+    <h2>Oops no goals set! Click the Add a goal button to add your first goal.</h2>
+    {{/each}}
+</div>
+
+<script src="/js/goals.js"></script>

@@ -1,7 +1,6 @@
 const DateTime = luxon.DateTime;
 const year = DateTime.now().year;
 let currentMonth = DateTime.now().month;
-let userCat = [];
 let curDay = 0;
 let curCat = 0;
 
@@ -28,12 +27,9 @@ const clearNodes = (parent) =>
     }
 }
 
-const renderCal = async (cal) =>
+const getDailyChecks = async () =>
 {
-    let calendar = document.getElementById('calendar');
-    clearNodes(calendar);
-
-    const arrDailyCheck = await fetch('/api/dailyCheck/',
+    const arrDailyCheck = await fetch('/api/dailyCheck/getChecks',
     {
         method:'GET',
         headers: { 'Content-Type': 'application/json; charset=utf-8', }
@@ -43,21 +39,56 @@ const renderCal = async (cal) =>
         {
             return response.json();
         }
-    });
-
-    arrDaCheck = arrDailyCheck.map((e) =>
-    {
-        return {
-            day: DateTime.fromISO(e.day).day,
-            cat_id:e.catagory_id
+        else{
+            console.log(response.json());
         }
     });
-    console.log(arrDaCheck);
-    
-    cal.forEach(e =>
-        {
 
-            $('.calendar').append(`<a class="date container row narrower short" id="date" data-day="${e}"><h2 class="daynum shorter thin">${e}</h2><a>`);
+    arrDaCheck = arrDailyCheck.dailyChecks.map((e) =>
+    {
+        let obj = {};
+        for(let i = 0; i < arrDailyCheck.catagories.length; i++)
+        {
+            if(e.catagory_id == arrDailyCheck.catagories[i].id)
+            {
+                obj = {
+                    day: DateTime.fromISO(e.day).day,
+                    cat_id:e.catagory_id,
+                    color: arrDailyCheck.catagories[i].color
+                }
+            }
+        }
+         return obj; 
+    });
+
+    return arrDaCheck;
+}
+
+const renderCal = async (cal) =>
+{
+    let calendar = document.getElementById('calendar');
+    clearNodes(calendar);
+
+    const attDC = await getDailyChecks();
+
+    console.log(attDC)
+    cal.forEach((e) =>
+        {
+            
+            let a = Number.isInteger(e) ? "clk": "";
+
+            const thing = attDC.filter((t) => t.day == e);
+            const colors = thing.map((e) => e.color);
+
+            let grad = "linear-gradient(0deg";
+            for(let i in colors)
+            {
+                grad += ', ' + colors[i];
+            }
+            grad += ', transparent)';
+
+
+            $('.calendar').append(`<a style="background: ${colors.length > 0 ? grad : null}" class="date container row narrower short" id="${a}" data-day="${e}"><h2    class="daynum shorter thin">${e}</h2><a>`);
             
         });
     if(cal.length > 42)
@@ -67,9 +98,6 @@ const renderCal = async (cal) =>
             $('.calendar').append(`<a class="date text-center narrower short" data-day=""><h2 class="shorter thin"></h2><a>`);
         }
     }
-    
-
-    
 }
 
 const populateCal = (dt) =>
@@ -103,17 +131,16 @@ const minusMonth = () =>
     populateCal(dt);
 }
 
-const pushCat = (day, cat) =>
+const pushCat = (uDay, catagory_id) =>
 {
    
     $('#cat-select').css('display','none');
 
-    fetch('/api/dailyCheck/',
+    fetch('/api/dailyCheck/create',
     {
         method: 'POST',
         body:JSON.stringify({
-            'catagory_id':cat,
-            'day':day
+            catagory_id, day: DateTime.local(year, currentMonth, parseInt(uDay)).toISO()
         }),
         headers: {'Content-Type': 'application/json; charset=utf-8'}
     })
@@ -132,29 +159,31 @@ const pushCat = (day, cat) =>
     .then((data) =>
     {
         console.log(data);
+    }).then(() =>
+    {
+        return
     });
-
 }
 
-$('body').on('click', '#date', (e) =>
+$('body').on('click', '#clk', (e) =>
 {
     let t = e.target;
-    let day = 0;
     if(t.nodeName =='H2')
     {
-        
-        userDay = t.parentNode.dataset.day;
+        curDay = t.parentNode.dataset.day;
+        eval(localStorage.getItem('night')) ? $(t.parentNode).css('box-shadow', '0 10px 1px rgba(255,255,255,.6)'):$(t.parentNode).css('box-shadow', '0 10px 1px rgba(0,255,0,.6)');
     }
     else if(t.nodeName == 'A')
     {
-        userDay = t.dataset.day;
+        curDay = t.dataset.day;
+        eval(localStorage.getItem('night')) ? $(t).css('box-shadow', '0 10px 1px rgba(255,255,255,.6)'):$(t).css('box-shadow', '0 10px 1px rgba(0,255,0,.6)');
     }
 
     $('#cat-select').css('display',' block');
 
 });
 
-$('li').click( (e)=>
+$('li').click( async (e)=>
 {
     let t = e.target;
     if(t.nodeName == "LI")
@@ -166,36 +195,9 @@ $('li').click( (e)=>
         curCat = t.parentNode.dataset.id;
     }
 
-    pushCat(userDay, curCat);
-    populateCal(DateTime.now());
-
+    pushCat(curDay, curCat)
+    setTimeout(populateCal(DateTime.now()), 50);
 });
-
-const getCategory = () =>
-{
-    fetch('/api/catagory/',
-    {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json; charset=utf-8', }
-    })
-    .then((response) =>
-    {
-        if (response.ok)
-        {
-            return response.json();
-        }
-        else
-        {
-            console.log("shits broke getting cats")
-        }
-    })
-    .then((data) =>
-    {
-        userCat = Array.from(data);
-    });
-
-}
 
 setMonth(DateTime.now());
 populateCal(DateTime.now());
-getCategory();
