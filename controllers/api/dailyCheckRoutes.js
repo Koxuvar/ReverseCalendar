@@ -3,33 +3,34 @@ const dailyCheck = require('../../models/dailyCheck');
 const withAuth = require('../../utils/auth');
 
 //get dailychecks for this user
-router.get(':/id', withAuth, async (req,res) => {
+router.get('/', withAuth, async (req,res) => {
     try {
         const dailyCheckData = await dailyCheck.findAll({
             where:
                 {
-                    user_id: req.params.id,
+                    user_id: req.session.user_id,
                 },
-            include: [
-                {
-                  model: dailyCheck,
-                  attributes: ['category_id', 'day'],
-                },
-              ],
+            // include: [
+            //     {
+            //       model: dailyCheck,
+            //       attributes: ['category_id', 'day'],
+            //     },
+            //   ],
             });
             //catch errors
             if (!dailyCheckData) {
                 res.status(404).json({ message: 'No dailyCheck found with this id!' });
                 return;
             }
-            res.status(200).json(dailyCheckData);
+            const dCheckData = dailyCheckData.map((dc) => dc.get({plain:true}));
+            res.status(200).json(dCheckData);
         }
         catch (err) {
             res.status(500).json(err)};
      });
 
     //create a daily check for this user
-    router.post(':/id/:catId', withAuth, async (req,res) => {
+    router.post('/', withAuth, async (req,res) => {
         try {
             const dailyCheckData = await dailyCheck.create({
                 day: req.body.day,

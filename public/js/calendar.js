@@ -2,6 +2,8 @@ const DateTime = luxon.DateTime;
 const year = DateTime.now().year;
 let currentMonth = DateTime.now().month;
 let userCat = [];
+let curDay = 0;
+let curCat = 0;
 
 const setMonth = (dt) =>
 {
@@ -26,11 +28,32 @@ const clearNodes = (parent) =>
     }
 }
 
-const renderCal = (cal) =>
+const renderCal = async (cal) =>
 {
     let calendar = document.getElementById('calendar');
     clearNodes(calendar);
 
+    const arrDailyCheck = await fetch('/api/dailyCheck/',
+    {
+        method:'GET',
+        headers: { 'Content-Type': 'application/json; charset=utf-8', }
+    }).then((response) =>
+    {
+        if(response.ok)
+        {
+            return response.json();
+        }
+    });
+
+    arrDaCheck = arrDailyCheck.map((e) =>
+    {
+        return {
+            day: DateTime.fromISO(e.day).day,
+            cat_id:e.catagory_id
+        }
+    });
+    console.log(arrDaCheck);
+    
     cal.forEach(e =>
         {
 
@@ -44,6 +67,9 @@ const renderCal = (cal) =>
             $('.calendar').append(`<a class="date text-center narrower short" data-day=""><h2 class="shorter thin"></h2><a>`);
         }
     }
+    
+
+    
 }
 
 const populateCal = (dt) =>
@@ -77,23 +103,71 @@ const minusMonth = () =>
     populateCal(dt);
 }
 
+const pushCat = (day, cat) =>
+{
+   
+    console.log(day, cat);
+    $('#cat-select').css('display','none');
+
+    fetch('/api/dailyCheck/',
+    {
+        method: 'POST',
+        body:{
+            catagory_id:'cat',
+            day:'day'
+        },
+        headers: { 'Content-Type': 'application/json; charset=utf-8', }
+    })
+    .then((response) =>
+    {
+        if (response.ok)
+        {
+            return response.json();
+        }
+        else
+        {
+            console.log("shits broke");
+        }
+    })
+    .then((data) =>
+    {
+        console.log(data);
+    });
+
+}
+
 $('body').on('click', '#date', (e) =>
 {
     let t = e.target;
     let day = 0;
     if(t.nodeName =='H2')
     {
-        console.log('hello');
-        day = t.parentNode.dataset.day;
+        
+        userDay = t.parentNode.dataset.day;
     }
     else if(t.nodeName == 'A')
     {
-        day = t.dataset.day;
+        userDay = t.dataset.day;
     }
 
     $('#cat-select').css('display',' block');
-    
 
+});
+
+$('li').click( (e)=>
+{
+    let t = e.target;
+    if(t.nodeName == "LI")
+    {
+        curCat = t.dataset.id;
+    }
+    else if(t.nodeName == "H2" || t.nodeName == "DIV")
+    {
+        curCat = t.parentNode.dataset.id;
+    }
+
+    pushCat(userDay, curCat);
+    populateCal(DateTime.now());
 
 });
 
