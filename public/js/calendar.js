@@ -106,27 +106,27 @@ const minusMonth = () =>
 const pushCat = (day, cat) =>
 {
    
-    console.log(day, cat);
     $('#cat-select').css('display','none');
 
     fetch('/api/dailyCheck/',
     {
         method: 'POST',
-        body:{
-            catagory_id:'cat',
-            day:'day'
-        },
-        headers: { 'Content-Type': 'application/json; charset=utf-8', }
+        body:JSON.stringify({
+            'catagory_id':cat,
+            'day':day
+        }),
+        headers: {'Content-Type': 'application/json; charset=utf-8'}
     })
     .then((response) =>
     {
         if (response.ok)
         {
+            console.log(response);
             return response.json();
         }
         else
         {
-            console.log("shits broke");
+            console.log("shits broke pushing cat");
         }
     })
     .then((data) =>
@@ -186,7 +186,7 @@ const getCategory = () =>
         }
         else
         {
-            console.log("shits broke")
+            console.log("shits broke getting cats")
         }
     })
     .then((data) =>

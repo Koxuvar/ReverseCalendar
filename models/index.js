@@ -1,4 +1,4 @@
-const User = require('./User');
+const User = require('./user');
 const DailyCheck = require('./DailyCheck');
 const Catagory = require('./Catagory');
 
