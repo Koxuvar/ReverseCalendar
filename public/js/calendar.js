@@ -43,7 +43,7 @@ const getDailyChecks = async () =>
             console.log(response.json());
         }
     });
-
+    console.log(arrDailyCheck);
     arrDaCheck = arrDailyCheck.dailyChecks.map((e) =>
     {
         let obj = {};
@@ -52,6 +52,7 @@ const getDailyChecks = async () =>
             if(e.catagory_id == arrDailyCheck.catagories[i].id)
             {
                 obj = {
+                    month: DateTime.fromISO(e.day).month,
                     day: DateTime.fromISO(e.day).day,
                     cat_id:e.catagory_id,
                     color: arrDailyCheck.catagories[i].color
@@ -71,14 +72,16 @@ const renderCal = async (cal) =>
 
     const attDC = await getDailyChecks();
 
+
     console.log(attDC)
     cal.forEach((e) =>
         {
             
             let a = Number.isInteger(e) ? "clk": "";
 
-            const thing = attDC.filter((t) => t.day == e);
-            const colors = thing.map((e) => e.color);
+            const getMonth = attDC.filter((r) => r.month == currentMonth);
+            const getDay = getMonth.filter((t) => t.day == e);
+            const colors = getDay.map((e) => e.color);
 
             let grad = "linear-gradient(0deg";
             for(let i in colors)
