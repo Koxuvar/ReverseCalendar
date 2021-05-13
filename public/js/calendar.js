@@ -152,19 +152,12 @@ const pushCat = (uDay, catagory_id) =>
         if (response.ok)
         {
             console.log(response);
-            return response.json();
+            populateCal(DateTime.local(year, currentMonth));
         }
         else
         {
             console.log("shits broke pushing cat");
         }
-    })
-    .then((data) =>
-    {
-        console.log(data);
-    }).then(() =>
-    {
-        return
     });
 }
 
@@ -199,7 +192,6 @@ $('li').click( async (e)=>
     }
 
     pushCat(curDay, curCat)
-    setTimeout(populateCal(DateTime.local(year, currentMonth)), 250);
 });
 
 setMonth(DateTime.now());
