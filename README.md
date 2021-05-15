@@ -28,7 +28,7 @@ Login Page:
 (/assets/shuhbang-login.png)
 
 Goals Page: 
-(/ssets/shuhbang-goals.png)
+(/assets/shuhbang-goals.png)
 
 Calendar Page: 
 (/assets/shuhbang-calendar.png)
