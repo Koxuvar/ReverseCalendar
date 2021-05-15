@@ -43,7 +43,7 @@ const getDailyChecks = async () =>
             console.log(response.json());
         }
     });
-    console.log(arrDailyCheck);
+
     arrDaCheck = arrDailyCheck.dailyChecks.map((e) =>
     {
         let obj = {};
@@ -72,8 +72,6 @@ const renderCal = async (cal) =>
 
     const attDC = await getDailyChecks();
 
-
-    console.log(attDC)
     cal.forEach((e) =>
         {
             
@@ -91,7 +89,7 @@ const renderCal = async (cal) =>
             grad += ', transparent)';
 
 
-            $('.calendar').append(`<a style="background: ${colors.length > 0 ? grad : null}" class="date container row narrower short" id="${a}" data-day="${e}"><h2    class="daynum shorter thin">${e}</h2><a>`);
+            $('.calendar').append(`<a style="background: ${colors.length > 0 ? grad : null}; ${colors.length > 1 ? "color: var(--text-color)": null} " class="date container row narrower short" id="${a}" data-day="${e}"><h2 class="daynum shorter thin">${e}</h2><a>`);
             
         });
     if(cal.length > 42)
@@ -179,7 +177,7 @@ $('body').on('click', '#clk', (e) =>
 
 });
 
-$('li').click( async (e)=>
+$('li').click((e)=>
 {
     let t = e.target;
     if(t.nodeName == "LI")

@@ -41,6 +41,7 @@ $('#register-button').click((e) =>
             else
             {
                 document.getElementById('register-form').reset();
+                //hey it didnt work, try again
             }
         });
         
