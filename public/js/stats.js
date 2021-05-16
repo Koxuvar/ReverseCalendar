@@ -1,7 +1,14 @@
 const DateTime = luxon.DateTime;
+const Duration = luxon.Duration;
 const year = DateTime.now().year;
 const month = DateTime.now().month;
 const currMonth = DateTime.local(year, month);
+let myChart;
+
+const setMonthDisplay = (dt) =>
+{
+    $('#month-display').text(dt.monthLong);
+}
 
 const getDailyChecks = async () =>
 {
@@ -37,32 +44,32 @@ const getDailyChecks = async () =>
         }
          return obj; 
     });
-    console.log(arrDaCheck);
+
     return arrDaCheck;
 }
 
-const makeChart = async () =>
+const makeChartMonth = async () =>
 {
-
     const data = await getDailyChecks();
     const chartData = [];
     for(let i = 1; i < currMonth.daysInMonth; i++)
     {
         chartData[i] = data.filter((e) => e.day == i);
     }
-    console.log(chartData);
-
+    
 
     const prettyData = chartData.map((e, i) =>
     {
         let obj = {};
         obj.day = i;
         obj.entry = 0;
+        obj.colors = [];
         if(e.length > 0)
         {
             e.forEach((t) =>
             {
                 obj.entry += 1;
+                obj.colors.push(t.color);
             });
         }
         return obj;
@@ -70,43 +77,123 @@ const makeChart = async () =>
 
     const labels = prettyData.map((e) => {return e.day});
     const dataB = prettyData.map((e) => {return e.entry});
-    
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Completions Per Day',
-            data: dataB,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
+    const colors = prettyData.map((e) => 
+    {
+        let ctx = document.getElementById('myChart').getContext('2d');
+        let cvg = ctx.createLinearGradient(0,0,50,50);
+
+        let gradientStep = 1/e.colors.length;
+
+        for(let i = 0; i < e.colors.length; i++)
+        {
+            cvg.addColorStop(i*gradientStep, e.colors[i]);
         }
-    }
-});
+
+        return cvg;
+    });
+    
+    makeChart(labels, dataB, colors, 'Completions Per Day');
 }
 
+const makeChartYear = async () =>
+{
+    const data = await getDailyChecks();
+    const chartData = [];
+    for(let i = 1; i < currMonth.daysInYear; i++)
+    {
+        chartData[i] = data.filter((e) => e.day == i);
+    }
+    console.log(chartData);
 
-makeChart();
+    const prettyData = chartData.map((e, i) =>
+    {
+        let obj = {};
+        let start = DateTime.local(year, 1, 1);
+        let now = DateTime.local(year, e.month, e.day);
+        console.log(Duration.fromObject());
+        obj.entry = 0;
+        obj.colors = [];
+        if(e.length > 0)
+        {
+            e.forEach((t) =>
+            {
+                obj.entry += 1;
+                obj.colors.push(t.color);
+            });
+        }
+        return obj;
+    });
+
+    const labels = prettyData.map((e) => {return e.day});
+    const dataB = prettyData.map((e) => {return e.entry});
+    const colors = prettyData.map((e) => 
+    {
+        let ctx = document.getElementById('myChart').getContext('2d');
+        let cvg = ctx.createLinearGradient(0,0,50,50);
+
+        let gradientStep = 1/e.colors.length;
+
+        for(let i = 0; i < e.colors.length; i++)
+        {
+            cvg.addColorStop(i*gradientStep, e.colors[i]);
+        }
+
+        return cvg;
+    });
+    
+    makeChart(labels, dataB, colors, 'Completions Per Day');
+}
+
+const makeChart = (labels, dataB, colors, uniqueLabel) =>
+{
+    let ctx = document.getElementById('myChart').getContext('2d');
+    myChart = new Chart(ctx, 
+        {
+            type: 'bar',
+            data: 
+            {
+                labels: labels,
+                datasets: 
+                [{
+                    label: uniqueLabel,
+                    data: dataB,
+                    backgroundColor: colors
+                }]
+            },
+            options: 
+            {
+                scales: 
+                {
+                    y: 
+                    {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+}
+
+$('#month').click((e) =>
+{
+    e.preventDefault();
+    e.stopPropagation();
+    if(myChart)
+    {
+        myChart.destroy();
+    }
+    makeChartMonth();
+});
+
+$('#year').click((e) =>
+{
+    e.preventDefault();
+    e.stopPropagation();
+    if(myChart)
+    {
+        myChart.destroy();
+    }
+    makeChartYear();
+});
+
+setMonthDisplay(DateTime.now())
+makeChartMonth();

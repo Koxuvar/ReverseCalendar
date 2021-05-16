@@ -260,6 +260,14 @@ input:checked + .slider:before {
     justify-content: space-between;
 }
 
+.align-front{
+    align-items: flex-start;
+}
+
+.align-end{
+    align-items: flex-end;
+}
+
 /* ------------- Utilities ------------- */
 .click{
     cursor: pointer;

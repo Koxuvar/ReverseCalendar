@@ -18,6 +18,27 @@
     transition: .5s;
 }
 
+.navbar{
+    width: 30%; 
+    align-items: flex-end
+}
+
+#cat-select{
+    z-index: 10000;
+}
+
+.greyBox{
+    width: 100vw;
+    height: 100vh;
+    background: grey;
+    opacity: .5;
+    display: none;
+    z-index: 500;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .date{
     min-width: 14%;
     min-height: 20%;
@@ -72,6 +93,21 @@
 @media screen and (max-width: 768px) {
     .login, .signup{
         top: 70%;
+    }
+
+    .navbar{
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .navbar a
+    {
+        font-size: smaller;
+    }
+
+    .logout{
+        align-items: center;
     }
 }
 

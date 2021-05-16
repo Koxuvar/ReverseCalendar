@@ -40,6 +40,7 @@ $('#register-button').click((e) =>
             }
             else
             {
+                $('#signup-oops').text('User already exists, please pick a new username');
                 document.getElementById('register-form').reset();
                 //hey it didnt work, try again
             }
@@ -75,7 +76,8 @@ $('#login-button').click( (e) =>
                 document.location.replace('/calendar');
             }
             else
-            {
+            {   
+                $('#login-oops').text('Incorrect username or password, please try again');
                 document.getElementById('register-form').reset();
             }
         });

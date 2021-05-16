@@ -18,14 +18,14 @@ router.get('/',(req, res) => {
  
 });
 
-router.get('/login', (req, res) => {
-    if (req.session.logged_in) {
-        res.redirect('/calendar');
-        return;
-    }
+// router.get('/login', (req, res) => {
+//     if (req.session.logged_in) {
+//         res.redirect('/calendar');
+//         return;
+//     }
 
-    res.render('login');
-});
+//     res.render('login');
+// });
 
 router.get('/calendar', (req, res) =>
 {

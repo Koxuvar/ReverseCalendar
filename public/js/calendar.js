@@ -10,7 +10,7 @@ const setMonth = (dt) =>
 }
 
 const cleanCal = [
-    "Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun",
+    "Sun","Mon", "Tues", "Wed", "Thur", "Fri", "Sat", 
     "","","","","","","",
     "","","","","","","",
     "","","","","","","",
@@ -103,7 +103,11 @@ const renderCal = async (cal) =>
 
 const populateCal = (dt) =>
 {
-    const firstDay = DateTime.local(dt.year, dt.month, 1).weekday + 6;
+    let firstDay = DateTime.local(dt.year, dt.month, 1).weekday;
+    if(firstDay <= 6)
+    {
+        firstDay = firstDay + 7;
+    }
     const monthLength = DateTime.local(dt.year, dt.month).daysInMonth;
     
     let cal = Array.from(cleanCal);
@@ -136,6 +140,7 @@ const pushCat = (uDay, catagory_id) =>
 {
    
     $('#cat-select').css('display','none');
+    $('#grey-box').css('display', 'none');
 
     fetch('/api/dailyCheck/create',
     {
@@ -174,7 +179,19 @@ $('body').on('click', '#clk', (e) =>
     }
 
     $('#cat-select').css('display',' block');
+    $('#grey-box').css('display', 'block');
 
+});
+
+$('#grey-box').click((e)=>
+{
+    $('#cat-select').css('display','none');
+    $('#grey-box').css('display', 'none');
+    let aTags = document.getElementsByClassName('date');
+    for(let i = 0; i < aTags.length; i++)
+    {
+        aTags[i].style.boxShadow = '0 10px 1px rgba(0,0,0,.6)';
+    }
 });
 
 $('li').click((e)=>
