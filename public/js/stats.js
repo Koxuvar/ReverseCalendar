@@ -47,6 +47,54 @@ const getDailyChecks = async () =>
     return arrDaCheck;
 }
 
+const getDailyChecksForAll = async () =>
+{
+    const arrDailyCheck = await fetch('/api/dailyCheck/getChecksForUsers',
+    {
+        method:'GET',
+        headers: { 'Content-Type': 'application/json; charset=utf-8', }
+    }).then((response) =>
+    {
+        if(response.ok)
+        {
+            return response.json();
+        }
+        else{
+            console.log(response.json());
+        }
+    });
+
+    console.log(arrDailyCheck);
+
+    arrUserData = arrDailyCheck.map((e) =>
+    {
+        let obj = {};
+        obj.user = e.username;
+        obj.count = e.dailyChecks.length;
+        return obj;
+    });
+
+    return arrUserData;
+}
+
+const makeChartAll = async () =>
+{
+    const data = await getDailyChecksForAll();
+    const labels = data.map((e) => e.user);
+    const dataB = data.map((e) => e.count);
+    const colors = [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+    ];
+
+    makeChart(labels, dataB, colors, 'You and your 35 closest friends!');
+}
+
+
 const makeChartMonth = async () =>
 {
     const data = await getDailyChecks();
@@ -191,5 +239,17 @@ $('#year').click((e) =>
     makeChartYear();
 });
 
+$('#compare').click((e) =>
+{
+    e.preventDefault();
+    e.stopPropagation();
+    if(myChart)
+    {
+        myChart.destroy();
+    }
+    makeChartAll();
+})
+
 setMonthDisplay(DateTime.now())
 makeChartMonth();
+getDailyChecksForAll();

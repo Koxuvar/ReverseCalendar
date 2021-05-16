@@ -26,6 +26,31 @@ router.get('/getChecks', withAuth, async (req,res) =>
     }
 });
 
+router.get('/getChecksForUsers', withAuth, async (req,res) => 
+{
+    try 
+    {
+        const dailyCheckData = await User.findAll(
+            {
+            include:[{model:Catagory}, {model: DailyCheck}]  
+            });
+            
+            //catch errors
+            if (!dailyCheckData) 
+            {
+                res.status(404).json({ message: 'No dailyCheck found with this id!' });
+                return;
+            }
+            
+            const chunkedData = dailyCheckData.slice(0, 35);
+            res.status(200).json(chunkedData);
+    }
+    catch (err) 
+    {
+        res.status(500).json(err);
+    }
+});
+
     //create a daily check for this user
 router.post('/create', withAuth, async (req,res) => 
 {
