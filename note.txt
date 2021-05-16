@@ -27,4 +27,9 @@ Calendar
 
 category drop down
 
+--------------------
+       TODO
+--------------------
+Update Categories!!!!!
+Categories display and add categories for mobile!
 

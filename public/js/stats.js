@@ -64,8 +64,6 @@ const getDailyChecksForAll = async () =>
         }
     });
 
-    console.log(arrDailyCheck);
-
     arrUserData = arrDailyCheck.map((e) =>
     {
         let obj = {};
@@ -101,9 +99,12 @@ const makeChartMonth = async () =>
     const chartData = [];
     for(let i = 1; i < currMonth.daysInMonth; i++)
     {
-        chartData[i] = data.filter((e) => e.day == i);
+        chartData[i] = data.filter((e) => 
+        {
+            return e.month == currMonth.month && e.day == i;
+            
+        });
     }
-    
 
     const prettyData = chartData.map((e, i) =>
     {
