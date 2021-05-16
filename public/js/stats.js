@@ -1,5 +1,4 @@
 const DateTime = luxon.DateTime;
-const Duration = luxon.Duration;
 const year = DateTime.now().year;
 const month = DateTime.now().month;
 const currMonth = DateTime.local(year, month);
@@ -101,16 +100,13 @@ const makeChartYear = async () =>
     const chartData = [];
     for(let i = 1; i < currMonth.daysInYear; i++)
     {
-        chartData[i] = data.filter((e) => e.day == i);
+        chartData[i] = data.filter((e) => DateTime.local(year, e.month, e.day).ordinal == i);
     }
-    console.log(chartData);
 
     const prettyData = chartData.map((e, i) =>
     {
         let obj = {};
-        let start = DateTime.local(year, 1, 1);
-        let now = DateTime.local(year, e.month, e.day);
-        console.log(Duration.fromObject());
+        obj.day = i;
         obj.entry = 0;
         obj.colors = [];
         if(e.length > 0)
