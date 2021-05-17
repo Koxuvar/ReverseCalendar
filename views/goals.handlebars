@@ -19,11 +19,14 @@
     <li class="container catagory elbow-room row space-between" data-id="{{cat.id}}">
         <h2>{{cat.name}}</h2>
         <div style="background:{{cat.color}}" class="color-swatch" data-color="{{cat.color}}"></div>
+        {{!-- <div class="update fas fa-edit" id="update"></div> --}}
         <div class="delete fas fa-trash" id="delete"></div>
     </li>
     {{else}}
     <h2>Oops no goals set! Click the Add a goal button to add your first goal.</h2>
     {{/each}}
 </div>
+
+
 
 <script src="/js/goals.js"></script>
