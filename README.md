@@ -25,13 +25,16 @@ A web app designed to not focus about deadlines and the future. A calendar for j
 The Goals page allows users to create & save goals, and assign a color to each goal. From the Calendar page, a user clicks on a given day and selects from their saved goals to track progress that day against that goal. The ```calendar.js``` file leverages ```luxon``` to render new DailyCheck data (goals tracked against dates) for a given user. The Stats page shows statistics on user progress toward their goals. It gets DailyCheck data and uses ```Chart.js``` for data visualization.
 
 Login Page: 
-(/assets/shuhbang-login.png)
+<img src="assets/shuhbang-login.png"/>
 
 Goals Page: 
-(/assets/shuhbang-goals.png)
+<img src="assets/shuhbang-goals.png"/>
 
 Calendar Page: 
-(/assets/shuhbang-calendar.png)
+<img src="assets/shuhbang-calendar.png"/>
+
+Stats Page:
+<img src="assets/shuhbang-stats.png"/>
 
  ## Tests
 
