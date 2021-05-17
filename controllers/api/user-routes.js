@@ -14,7 +14,6 @@ router.post('/register', async (req, res) =>
                 username: req.body.username,
             }  
         });
-        console.log(userCheck);
 
         if(!userCheck)
         {
