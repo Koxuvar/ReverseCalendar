@@ -36,7 +36,7 @@ $('#register-button').click((e) =>
         {
             if (response.ok)
             {
-                document.location.replace('/calendar');
+                document.location.replace('/goals');
             }
             else
             {

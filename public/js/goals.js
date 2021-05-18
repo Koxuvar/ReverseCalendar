@@ -52,4 +52,6 @@ $('#delete').click((e) =>
             console.log(response.message);
         }
     })
-})
+});
+
+

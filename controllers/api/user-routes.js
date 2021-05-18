@@ -9,7 +9,10 @@ router.post('/register', async (req, res) =>
 
         const userCheck = await User.findOne(
         {
-            username: req.body.username,
+            where:
+            {
+                username: req.body.username,
+            }  
         });
 
         if(!userCheck)
